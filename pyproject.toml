@@ -1,16 +1,11 @@
 [project]
 name = "log-analyser"
 version = "0.1.0"
-description = "Add your description here"
+description = "Python SSH log analysis pipeline with SQLite storage and Matplotlib dashboard"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.11.2",
     "python-dotenv>=1.2.4",
     "requests>=2.34.2",
-]
-
-[tool.uv.workspace]
-members = [
-    "processing",
 ]
