@@ -144,7 +144,40 @@ class EventStore:
         finally:
             if connection is not None:
                 connection.close()
+    def update_countries(self, countries: dict[str, str]) -> int:
+        """Met a jour le pays des evenements a partir de leur adresse IP."""
+        connection = None
 
+        try:
+            values = [
+                (country, ip)
+                for ip, country in countries.items()
+                if country and country != "Unknown"
+            ]
+
+            connection = sqlite3.connect(self.db_path)
+
+            with connection:
+                cursor = connection.executemany(
+                    """
+                    UPDATE events
+                    SET country = ?
+                    WHERE ip = ? AND country = 'Unknown'
+                    """,
+                    values,
+                )
+
+            updated_count = cursor.rowcount
+            logger.info("%d evenement(s) enrichi(s) avec leur pays", updated_count)
+            return updated_count
+
+        except sqlite3.Error:
+            logger.exception("Erreur SQLite pendant la mise a jour des pays")
+            raise
+
+        finally:
+            if connection is not None:
+                connection.close()
     def get_event_count(self) -> int:
         """Retourne le nombre total d'evenements stockes."""
         connection = None
