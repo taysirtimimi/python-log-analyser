@@ -2,3 +2,7 @@
 .venv/
 __pycache__/
 *.pyc
+logs/
+output/
+*.db
+*.sqlite3.DS_Store
