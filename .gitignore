@@ -5,4 +5,8 @@ __pycache__/
 logs/
 output/
 *.db
-*.sqlite3.DS_Store
+*.sqlite3
+.DS_Store
+
+# Graphiques generes automatiquement
+serving/graphs/
